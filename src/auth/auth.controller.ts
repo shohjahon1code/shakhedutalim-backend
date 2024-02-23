@@ -10,6 +10,7 @@ import {
 import { AuthService } from './auth.service';
 import { AuthDto, LoginDto } from './dto/auth.dto';
 import { TokenDto } from './dto/token.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -17,6 +18,7 @@ export class AuthController {
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
+  @ApiTags('Auth')
   @Post('register')
   async register(@Body() userDto: AuthDto) {
     return this.authService.register(userDto);
@@ -24,6 +26,7 @@ export class AuthController {
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
+  @ApiTags('Auth')
   @Post('login')
   async login(@Body() userDto: LoginDto) {
     return this.authService.login(userDto);
@@ -31,12 +34,14 @@ export class AuthController {
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
+  @ApiTags('Auth')
   @Post('access')
   async getNewToken(@Body() token: TokenDto) {
     return this.authService.getNewToken(token);
   }
 
   @HttpCode(200)
+  @ApiTags('Auth')
   @Post('check-user')
   async checkUser(@Body() dto: { email: string }) {
     return this.authService.checkUser(dto.email);
